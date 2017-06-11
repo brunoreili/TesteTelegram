@@ -11,7 +11,7 @@ public class Cliente {
     private String first_name;
     private String last_name;
     private String categoria;
-    private Double consumo;
+    private Double consumoMedio;
     private int avaliacao;
 
     public Integer getId() {
@@ -42,11 +42,11 @@ public class Cliente {
         this.categoria = status;
     }
     
-    public Double getConsumo() {
-        return consumo;
+    public Double getConsumoMedio() {
+        return consumoMedio;
     }
-    public void setConsumo(Double consumo) {
-        this.consumo = consumo;
+    public void setConsumoMedio(Double consumoMedio) {
+        this.consumoMedio = consumoMedio;
     }
 
     public int getAvaliacao() {

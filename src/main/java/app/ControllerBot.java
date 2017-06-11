@@ -11,7 +11,6 @@ import app.bot.dao.NaoAlcoolDAO;
 import app.bot.dao.PorcaoDAO;
 import app.bot.estados.Estado;
 import app.bot.estados.EstadoApresentacao;
-import app.bot.estados.EstadoDecidindo;
 import app.bot.model.Update;
 import app.bot.sender.Sender;
 import java.io.IOException;
@@ -91,24 +90,24 @@ public class ControllerBot{
         Integer idCliente = update.getMessage().getFrom().getId();
         Cliente cliente = clienteRepository.findOne(idCliente);
         
-        if(cliente == null || cliente.getConsumo() == 0.00){
+        if(cliente == null || cliente.getConsumoMedio() == 0.00){
             Cliente novo = new Cliente();
             novo.setFirst_name(update.getMessage().getFrom().getFirst_name());
             novo.setLast_name(update.getMessage().getFrom().getLast_name());
             novo.setId(idCliente);
             novo.setCategoria("Bronze");
-            novo.setConsumo(0.00);
+            novo.setConsumoMedio(0.00);
             cliente = clienteRepository.save(novo);
         }
-        else if(cliente.getConsumo() > 0 && cliente.getConsumo() < 500){
+        else if(cliente.getConsumoMedio() > 0.00 && cliente.getConsumoMedio() < 500.00){
             cliente.setCategoria("Prata");
             cliente = clienteRepository.save(cliente);
         }
-        else if(cliente.getConsumo() >= 500){
+        else if(cliente.getConsumoMedio() >= 500.00){
             cliente.setCategoria("Ouro");
             cliente = clienteRepository.save(cliente);
         }else{
-            cliente.setConsumo(0.00);
+            cliente.setConsumoMedio(0.00);
             cliente.setCategoria(null);
             cliente = clienteRepository.save(cliente);
         }

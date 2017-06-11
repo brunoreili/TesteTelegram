@@ -5,13 +5,10 @@ import app.bot.comanda.Comanda;
 import app.bot.comanda.ComandaRepository;
 import app.bot.comanda.ItemComanda;
 import app.bot.comanda.ItemComandaRepository;
-import app.bot.dao.ComandaDAO;
-import java.util.List;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoConfirma extends Estado{
     
-    private final ComandaDAO comandaDAO = new ComandaDAO(context);
     private final ComandaRepository comandaRepository; 
     private final ItemComandaRepository itemComandaRepository;
     private final Cliente cliente;
@@ -34,15 +31,11 @@ public class EstadoConfirma extends Estado{
 
     @Override
     public void processaMensagem(String mensagem) {
-                                                //Falta gravar e buscar do banco de verdade
+
         try{          
             switch (mensagem.trim()) {
                 case "1":
-                    salvaItem();                    
-                    List<String> itens = comandaDAO.recuperaItensComanda();
-                    List<Integer> quantidade = comandaDAO.recuperaQuantidadeItem();
-                    List<Double> valor = comandaDAO.recuperaValorItem();
-                    
+                    salvaItem();                                        
                     mensagemResposta = "Pedido confirmado, " + cliente.getFirst_name() + "!" + System.lineSeparator() +
                                        "Agora é só aguardar que logo entregaremos na sua mesa." + System.lineSeparator() +
                                        "Sua comanda até o momento está assim:" + System.lineSeparator() +

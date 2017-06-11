@@ -51,5 +51,8 @@ public class ComandaDAO {
     
         return result;
     }
-    
+    public void deletaItem(){
+        itemRepository = context.getBean(ItemComandaRepository.class);
+        itemRepository.deleteAll();
+    }
 }

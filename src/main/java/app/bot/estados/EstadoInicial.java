@@ -49,7 +49,7 @@ public class EstadoInicial extends Estado{
                                         "2 - Fechar comanda "
                                    
                                         + cliente.getAvaliacao() + "---" +
-                                        cliente.getConsumo() + "---" +
+                                        cliente.getConsumoMedio() + "---" +
                                         cliente.getCategoria();                    
                     proximoEstado = new EstadoDecidindo(context, cliente, comanda); //Colocar If para decidir se vai fechar a comanda ou voltar! //Analisar os parametros
                     break;

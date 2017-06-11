@@ -23,7 +23,7 @@ public class EstadoApresentacao extends Estado{
             if(cliente.getCategoria().equals("Bronze")){
             
                 mensagemResposta = "Olá, " + cliente.getFirst_name() + " " + cliente.getLast_name() + "!" + System.lineSeparator() +
-                                   "Seja bem-vindo  ao Laboratório do Chopp!" + System.lineSeparator() +
+                                   "Seja bem-vindo ao Laboratório do Chopp!" + System.lineSeparator() +
                                    "É muito bom ter você como novo cliente do nosso Bar!" + System.lineSeparator() +
                                    "Sou o seu garçom virtual e estou aqui para ajudá-lo a escolher seu pedido." + System.lineSeparator() +
                                    "Você é um cliente \"" + cliente.getCategoria() + "\"" + System.lineSeparator() +

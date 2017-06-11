@@ -27,8 +27,8 @@ public class EstadoFecharComanda extends Estado {
             switch (mensagem.trim()) {
                 case "1":
                     taxaServico = 5;
-                    comanda.setTotal(comanda.getTotal() + taxaServico);
-                    salvaConsumo();                  
+                    cliente.setConsumoMedio(comanda.getTotal() + taxaServico);
+                    salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
                                        "Enquanto isso, avalie nosso atendimento."  + System.lineSeparator() +
@@ -40,7 +40,8 @@ public class EstadoFecharComanda extends Estado {
                     proximoEstado = new EstadoPagamento(context, cliente, comanda);
                     break;
                 case "2":
-                    salvaConsumo();
+                    cliente.setConsumoMedio(comanda.getTotal());
+                    salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
                                        "Enquanto isso, avalie nosso atendimento."  + System.lineSeparator() +
@@ -63,9 +64,8 @@ public class EstadoFecharComanda extends Estado {
         
     }
 
-    private void salvaConsumo() {
-        
-        cliente.setConsumo(comanda.getTotal());
+    private void salvaConsumoMedio() {
+
         clienteRepository.save(cliente);
         
     }

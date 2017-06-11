@@ -3,11 +3,19 @@ package app.bot.estados;
 import app.bot.cliente.Cliente;
 import app.bot.cliente.ClienteRepository;
 import app.bot.comanda.Comanda;
+import app.bot.comanda.ComandaRepository;
+import app.bot.comanda.ItemComanda;
+import app.bot.comanda.ItemComandaRepository;
+import app.bot.dao.ComandaDAO;
+import java.util.List;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoPagamento extends Estado {
     
+    private final ComandaDAO comandaDAO = new ComandaDAO(context);
     private final ClienteRepository clienteRepository;
+    private final ComandaRepository comandaRepository;
+    private final ItemComandaRepository itemComandaRepository;
     final private Cliente cliente;
     final private Comanda comanda;
     
@@ -16,6 +24,8 @@ public class EstadoPagamento extends Estado {
         this.cliente = cliente;
         this.comanda = comanda;
         this.clienteRepository = context.getBean(ClienteRepository.class);
+        this.comandaRepository = context.getBean(ComandaRepository.class);
+        this.itemComandaRepository = context.getBean(ItemComandaRepository.class);
     }
 
     @Override
@@ -24,6 +34,7 @@ public class EstadoPagamento extends Estado {
         try{
             switch (mensagem.trim()) {
                 case "1":
+                    deletaComanda();
                     salvaAvaliacao(1);
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
@@ -31,6 +42,7 @@ public class EstadoPagamento extends Estado {
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);
                     break;
                 case "2":
+                    deletaComanda();
                     salvaAvaliacao(2);
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
@@ -38,6 +50,7 @@ public class EstadoPagamento extends Estado {
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);      
                     break;
                 case "3":
+                    deletaComanda();
                     salvaAvaliacao(3);
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
@@ -45,6 +58,7 @@ public class EstadoPagamento extends Estado {
                     proximoEstado = null;
                     break;
                 case "4":
+                    deletaComanda();
                     salvaAvaliacao(4);
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
@@ -52,6 +66,7 @@ public class EstadoPagamento extends Estado {
                     proximoEstado = null;
                     break;
                 case "5":
+                    deletaComanda();
                     salvaAvaliacao(5);
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
@@ -60,7 +75,7 @@ public class EstadoPagamento extends Estado {
                     break;
             default:
                     mensagemResposta = "Por favor, escolha uma opção válida!";
-                    proximoEstado = null;
+                    proximoEstado = this;
                     break;
             }
         }catch(Exception e){
@@ -74,6 +89,15 @@ public class EstadoPagamento extends Estado {
         
         cliente.setAvaliacao(i);
         clienteRepository.save(cliente);
+        
+    }
+
+    private void deletaComanda() {
+        
+        comandaDAO.deletaItem();
+        
+        comanda.setTotal(0);
+        comandaRepository.save(comanda);
         
     }
     
