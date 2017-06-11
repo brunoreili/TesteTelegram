@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Módulos de Teste</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .jumbotron{
+            width: 500px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+        .table{
+            margin-top: 20px;
+        }
+        .form-control{
+            width: 400px;
+            margin-left: 50px;
+        }
+    </style>            
+    </head>
+    <body ng-app="botapp" ng-controller="botctrl">
+        
+        <h1 style="text-align: center">Módulos de Teste</h1>
+        <script src="app.js"></script>
+        
+        <hr/><!--Link do telegram-->
+        <div class="vc_single_image-wrapper vc_box_border_grey" style="text-align: center">
+            <a href="http://telegram.me/testechoppbot" target="_self">
+            <img width="332" height="59"
+                 src="http://www.estherbot.com/wp-content/uploads/2015/03/Sign-up-button-Copy-2@1x.png"
+                 class="vc_single_image-img attachment-full" alt="Sign up button Copy 2@1x"
+                 srcset="http://www.estherbot.com/wp-content/uploads/2015/03/Sign-up-button-Copy-2@1x.png 332w,
+                         http://www.estherbot.com/wp-content/uploads/2015/03/Sign-up-button-Copy-2@1x-300x53.png 300w,
+                         http://www.estherbot.com/wp-content/uploads/2015/03/Sign-up-button-Copy-2@1x@2x.png 664w"
+                 sizes="(max-width: 332px) 100vw, 332px"
+            />
+            </a>
+        </div>
+        
+        <hr><!--Enviar Texto-->
+        <div class="jumbotron">
+            <h3>Inserir Texto</h3>
+            <hr/>
+            <textarea class="form-control" rows="5" ng-model="texto" placeholder="Texto"></textarea>
+            <!--input class="form-control" type="text" ng-model="texto" placeholder="Texto"> <br-->
+            <button class="btn btn-primary" 
+                    ng-click="enviar(texto)"
+                    ng-disabled="!texto">Enviar</button>
+            <br/>
+            <h1 ng-show="enviando">Enviando...</h1> 
+            <hr><!--Resposta-->
+            <h4 style="text-align: left">Resposta:</h4>
+            {{resposta.data.texto}}
+        </div>
+        
+        <hr/><!--Cadastro de Itens-->         
+        <div class="jumbotron">
+            
+            <h3>Cadastro de Itens</h3>
+            <hr/>
+            <select class="form-control" ng-model="item.categoria" 
+                    ng-options="categoria.nome group by categoria.tipo for categoria in categorias">
+                <option value="">Selecione a categoria do item</option>
+            </select> <br/>
+            <input class="form-control" type="text" ng-model="item.nome" placeholder="Nome"/> <br/>
+            <input type="number" step="0.01" class="form-control" type="text" ng-model="item.valor" placeholder="Valor R$"/> <br/>
+            <button class="btn btn-primary" ng-click="adcionarItem(item)" 
+                    ng-disabled="!item.nome || !item.valor || !item.categoria">Adcionar Item
+            </button>
+            <hr/>
+            <h4 ng-show="enviando">Enviando...</h4> 
+            <h4>{{mensagem}}</h4>
+        </div>
+        
+        <hr/><!--Listar Itens-->
+        <div class="jumbotron">
+            <h3>Listar Itens</h3>
+            <hr/>
+            <select class="form-control" ng-model="item.categoria" ng-options="categoria.nome group by categoria.tipo for categoria in categorias">
+                <option value="">Selecione a categoria do item</option>
+            </select> <br/>
+            <button class="btn btn-primary" ng-click="listar(item)" ng-disabled="!item.categoria">Listar</button>
+            <h1 ng-show="buscando">Buscando...</h1>
+            
+            <table class="table table-striped" ng-show="itens">
+                <tr>
+                    <th style="text-align: center">Nome</th>
+                    <th style="text-align: center">valor R$</th>
+                </tr>
+                <tr ng-repeat="item in itens">
+                    <td>{{item.nome}}</td>
+                    <td>{{item.valor}}</td>
+                </tr>
+            </table>
+        </div> 
+            
+    </body>    
+</html>
