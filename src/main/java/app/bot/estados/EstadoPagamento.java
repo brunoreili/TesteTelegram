@@ -55,7 +55,7 @@ public class EstadoPagamento extends Estado {
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
-                    proximoEstado = null;
+                    proximoEstado = new EstadoApresentacao(context, cliente, comanda);
                     break;
                 case "4":
                     deletaComanda();
@@ -63,7 +63,7 @@ public class EstadoPagamento extends Estado {
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
-                    proximoEstado = null;
+                    proximoEstado = new EstadoApresentacao(context, cliente, comanda);
                     break;
                 case "5":
                     deletaComanda();
@@ -71,7 +71,7 @@ public class EstadoPagamento extends Estado {
                     mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
-                    proximoEstado = null;
+                    proximoEstado = new EstadoApresentacao(context, cliente, comanda);
                     break;
             default:
                     mensagemResposta = "Por favor, escolha uma opção válida!";
@@ -94,11 +94,11 @@ public class EstadoPagamento extends Estado {
 
     private void deletaComanda() {
         
-        comandaDAO.deletaItem();
-        
         comanda.setTotal(0);
         comandaRepository.save(comanda);
         
+        comandaDAO.deletaItem();
+          
     }
     
 }

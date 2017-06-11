@@ -99,19 +99,7 @@ public class ControllerBot{
             novo.setConsumoMedio(0.00);
             cliente = clienteRepository.save(novo);
         }
-        else if(cliente.getConsumoMedio() > 0.00 && cliente.getConsumoMedio() < 500.00){
-            cliente.setCategoria("Prata");
-            cliente = clienteRepository.save(cliente);
-        }
-        else if(cliente.getConsumoMedio() >= 500.00){
-            cliente.setCategoria("Ouro");
-            cliente = clienteRepository.save(cliente);
-        }else{
-            cliente.setConsumoMedio(0.00);
-            cliente.setCategoria(null);
-            cliente = clienteRepository.save(cliente);
-        }
-                
+                        
         return cliente;
         
     }    

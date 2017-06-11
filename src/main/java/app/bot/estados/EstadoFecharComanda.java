@@ -27,7 +27,7 @@ public class EstadoFecharComanda extends Estado {
             switch (mensagem.trim()) {
                 case "1":
                     taxaServico = 5;
-                    cliente.setConsumoMedio(comanda.getTotal() + taxaServico);
+                    cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal() + taxaServico);
                     salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
@@ -36,11 +36,11 @@ public class EstadoFecharComanda extends Estado {
                                        "2 - RUIM" + System.lineSeparator() + 
                                        "3 - REGULAR" + System.lineSeparator() +
                                        "4 - BOM" + System.lineSeparator() +
-                                       "5 – ÓTIMO";                                   
+                                       "5 - ÓTIMO";                                   
                     proximoEstado = new EstadoPagamento(context, cliente, comanda);
                     break;
                 case "2":
-                    cliente.setConsumoMedio(comanda.getTotal());
+                    cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal());
                     salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
@@ -49,7 +49,7 @@ public class EstadoFecharComanda extends Estado {
                                        "2 - RUIM" + System.lineSeparator() + 
                                        "3 - REGULAR" + System.lineSeparator() +
                                        "4 - BOM" + System.lineSeparator() +
-                                       "5 – ÓTIMO";
+                                       "5 - ÓTIMO";
                     proximoEstado = new EstadoPagamento(context, cliente, comanda);
                     break;
             default:

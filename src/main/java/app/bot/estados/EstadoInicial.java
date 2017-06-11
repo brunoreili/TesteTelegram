@@ -45,12 +45,13 @@ public class EstadoInicial extends Estado{
                     }
                     mensagemResposta += System.lineSeparator() + 
                                         "TOTAL...................R$ " + comanda.getTotal() + System.lineSeparator() + System.lineSeparator() +
-                                        "1 - Voltar para o início" + System.lineSeparator() +
-                                        "2 - Fechar comanda "
+                                        "1 - Voltar" + System.lineSeparator() +
+                                        "2 - Fechar comanda"
                                    
-                                        + cliente.getAvaliacao() + "---" +
-                                        cliente.getConsumoMedio() + "---" +
-                                        cliente.getCategoria();                    
+                                        + "\n\nTESTE!\n " + //APENAS PARA TESTAR
+                                        "NOTA AVALIAÇÃO: " + cliente.getAvaliacao() + " \n" +
+                                        "CONSUMO MÉDIO: " + cliente.getConsumoMedio() + " \n" +
+                                        "CATEGORIA: " + cliente.getCategoria();                    
                     proximoEstado = new EstadoDecidindo(context, cliente, comanda); //Colocar If para decidir se vai fechar a comanda ou voltar! //Analisar os parametros
                     break;
             default:

@@ -1,25 +1,37 @@
 package app.bot.estados;
 
 import app.bot.cliente.Cliente;
+import app.bot.cliente.ClienteRepository;
 import app.bot.comanda.Comanda;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoApresentacao extends Estado{
     
-    private final Cliente cliente;
+    private final ClienteRepository clienteRepository;
+    private Cliente cliente;
     private final Comanda comanda;
 
     public EstadoApresentacao(ApplicationContext context, Cliente cliente, Comanda comanda) {
         super(context);
         this.cliente = cliente;
         this.comanda = comanda;
-        
+        this.clienteRepository = context.getBean(ClienteRepository.class);        
     }
     
     @Override
     public void processaMensagem(String mensagem) {
         
         try{
+            
+            if(cliente.getConsumoMedio() > 0.00 && cliente.getConsumoMedio() < 500.00){
+            cliente.setCategoria("Prata");
+            cliente = clienteRepository.save(cliente);
+            }
+            else if(cliente.getConsumoMedio() >= 500.00){
+            cliente.setCategoria("Ouro");
+            cliente = clienteRepository.save(cliente);
+            }
+            
             if(cliente.getCategoria().equals("Bronze")){
             
                 mensagemResposta = "Olá, " + cliente.getFirst_name() + " " + cliente.getLast_name() + "!" + System.lineSeparator() +
