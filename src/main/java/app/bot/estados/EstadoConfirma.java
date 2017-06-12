@@ -36,7 +36,7 @@ public class EstadoConfirma extends Estado{
             switch (mensagem.trim()) {
                 case "1":
                     salvaItem();
-                    //comanda.setPedidoAberto(true);
+                    comanda.setPedidoAberto(true);
                     mensagemResposta = "Pedido confirmado, " + cliente.getFirst_name() + "!" + System.lineSeparator() +
                                        "Agora é só aguardar que logo entregaremos na sua mesa." + System.lineSeparator() +
                                        "Sua comanda até o momento está assim:" + System.lineSeparator() +

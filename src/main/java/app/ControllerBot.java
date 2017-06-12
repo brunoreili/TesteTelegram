@@ -113,8 +113,8 @@ public class ControllerBot{
             nova.setCliente(cliente);
             nova.setItem(null);
             nova.setTotal(0);
-            //nova.setPedidoAberto(false);
-            //nova.setComandaAberta(true);
+            nova.setPedidoAberto(false);
+            nova.setComandaAberta(true);
             comanda = comandaRepository.save(nova);
         }
         

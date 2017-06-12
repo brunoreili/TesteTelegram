@@ -12,7 +12,7 @@ app.controller("botctrl", function($scope, $http){
         update.message.text = texto;
         
         
-        $http.post("http://localhost:8080/update",update)
+        $http.post("https://projeto-lab-chopp.herokuapp.com/update", update)
             .then(function(result){
                 console.log('result');
                 console.log(result);
