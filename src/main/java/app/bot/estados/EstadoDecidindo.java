@@ -35,14 +35,6 @@ public class EstadoDecidindo extends Estado {
                                        "Caso queira pagar a taxa de serviço, o valor final da conta será de R$[VALOR TOTAL COM DESCONTO + TAXA DE SERVIÇO]\n" +
                                        "1 - Pagar COM taxa de serviço.\n" +
                                        "2 - Pagar SEM taxa de serviço.";
-                    
-                    /*mensagemResposta = "Certo, " + cliente.getFirst_name() + "." + System.lineSeparator() +
-                                       "O valor total da sua comanda é: R$" + comanda.getTotal() + System.lineSeparator() +
-                                       "Como você é um cliente " + cliente.getCategoria() + ", receberá um desconto de R$[CALCULAR PORCENTAGEM (DESCONTO)]" + System.lineSeparator() +
-                                       "Então, o valor final ficou: R$[VALOR - DESCONTO]" + System.lineSeparator() +
-                                       "Caso queira pagar a taxa de serviço, o valor final da conta será de R$[VALOR - DESCONTO] + [TAXA]" + System.lineSeparator() + System.lineSeparator() +
-                                       "1 - Pagar COM taxa de serviço." + System.lineSeparator() +
-                                       "2 - Pagar SEM taxa de serviço.";*/
                     proximoEstado = new EstadoFecharComanda(context, cliente, comanda, taxaServico);
                     break;
             default:

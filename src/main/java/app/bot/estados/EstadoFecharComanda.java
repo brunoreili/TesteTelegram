@@ -28,6 +28,7 @@ public class EstadoFecharComanda extends Estado {
                 case "1":
                     taxaServico = 5;
                     cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal() + taxaServico);
+                    //comanda.setComandaAberta(false);
                     salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
@@ -41,6 +42,7 @@ public class EstadoFecharComanda extends Estado {
                     break;
                 case "2":
                     cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal());
+                    //comanda.setComandaAberta(false);
                     salvaConsumoMedio();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +

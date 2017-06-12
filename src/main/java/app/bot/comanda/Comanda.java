@@ -15,7 +15,8 @@ public class Comanda {
     @OneToOne
     private ItemComanda item;
     private double total;
-    //private boolean aberta; - Implementar boleana.
+    private boolean pedidoAberto;
+    private boolean comandaAberta;
 
     public Integer getId() {
         return id;
@@ -44,5 +45,19 @@ public class Comanda {
     public void setTotal(double total) {
         this.total = total;
     }   
+
+    public boolean isPedidoAberto() {
+        return pedidoAberto;
+    }
+    public void setPedidoAberto(boolean pedidoAberto) {
+        this.pedidoAberto = pedidoAberto;
+    }
+
+    public boolean isComandaAberta() {
+        return comandaAberta;
+    }
+    public void setComandaAberta(boolean comandaAberta) {
+        this.comandaAberta = comandaAberta;
+    }
 
 }
