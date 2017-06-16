@@ -1,7 +1,7 @@
 package app.bot.dao;
 
-import app.bot.item.ItemPorcao;
-import app.bot.item.ItemPorcaoRepository;
+import app.bot.cardapio.ItemPorcao;
+import app.bot.cardapio.ItemPorcaoRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -23,17 +23,17 @@ public class PorcaoDAO {
             
             ItemPorcao i1 = new ItemPorcao();
             i1.setNome("Batata Frita");
-            i1.setValor("11.00");
+            i1.setValor("7.0");
             itemPorcaoRepository.save(i1);
                 
             ItemPorcao i2 = new ItemPorcao();
             i2.setNome("Carne de sol c/ Mandioca");
-            i2.setValor("15.00");        
+            i2.setValor("10.0");        
             itemPorcaoRepository.save(i2);
         
             ItemPorcao i3 = new ItemPorcao();
-            i3.setNome("Camarão c/ Queijo");
-            i3.setValor("20.00");        
+            i3.setNome("Camarão internacional");
+            i3.setValor("13.0");        
             itemPorcaoRepository.save(i3);   
         }
     }

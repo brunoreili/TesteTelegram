@@ -1,7 +1,7 @@
 package app.bot.dao;
 
-import app.bot.item.ItemCerveja;
-import app.bot.item.ItemCervejaRepository;
+import app.bot.cardapio.ItemCerveja;
+import app.bot.cardapio.ItemCervejaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -23,17 +23,17 @@ public class CervejaDAO {
             
             ItemCerveja c1 = new ItemCerveja();
             c1.setNome("Antartica");
-            c1.setValor("7.00");        
+            c1.setValor("5.0");        
             itemCervejaRepository.save(c1);
                 
             ItemCerveja c2 = new ItemCerveja();
             c2.setNome("Devassa      ");
-            c2.setValor("6.00");        
+            c2.setValor("5.0");        
             itemCervejaRepository.save(c2);
         
             ItemCerveja c3 = new ItemCerveja();
             c3.setNome("Skol          ");
-            c3.setValor("5.00");        
+            c3.setValor("4.0");        
             itemCervejaRepository.save(c3);    
         }
         

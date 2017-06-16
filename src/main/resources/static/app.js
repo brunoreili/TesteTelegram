@@ -1,4 +1,4 @@
-var app = angular.module("botapp",[]);
+var app = angular.module("botapp",['ngRoute']);
 
 app.controller("botctrl", function($scope, $http){
        
@@ -12,7 +12,7 @@ app.controller("botctrl", function($scope, $http){
         update.message.text = texto;
         
         
-        $http.post("https://projeto-lab-chopp.herokuapp.com/update", update)
+        $http.post("http://localhost:8080/update", update)
             .then(function(result){
                 console.log('result');
                 console.log(result);
@@ -30,6 +30,20 @@ app.controller("botctrl", function($scope, $http){
         console.log("foi!");
     }
     
+    //Módulo de Rotas
+    app.config(function($routeProvider){
+        $routeProvider
+            .when('/cadastro', {
+                templateUrl: 'html/cadastro.html'
+            })
+            .when('/listar', {
+                templateUrl: 'html/listar.html', 
+            })
+            .otherwise({
+                templateUrl: 'html/home.html'
+            });
+    });
+    
     $scope.itens = [];
     $scope.categorias = [
         {nome: "Espetinho", tipo: "Alimentos"},
@@ -38,7 +52,7 @@ app.controller("botctrl", function($scope, $http){
         {nome: "Drink", tipo: "Bebidas"},
         {nome: "Não Alcoólico", tipo: "Bebidas"}
     ];
-    
+    //CRUD
     $scope.adcionarItem = function (item) {
         delete $scope.item;
         $scope.enviando=true;
@@ -112,7 +126,7 @@ app.controller("botctrl", function($scope, $http){
         }  
     
     }    
-    $scope.listar = function(item){
+    $scope.listarItem = function(item){
         $scope.buscando = true;
         console.log("buscandooOOOoo");        
         if(item.categoria.nome === "Espetinho"){
@@ -168,8 +182,106 @@ app.controller("botctrl", function($scope, $http){
                 },function(erro){
                     $scope.buscando=false;
                     console.log(erro);
+                },function(erro){
+                    $scope.buscando=false;
+                    console.log(erro);
                 });
         }
-    }  
+
+    }
+    $scope.deletarItem = function(item){
+        $scope.enviando = true;
+        console.log("Deletandoooo");
+        console.log(item);
+               
+            $http.post("https://projeto-lab-chopp.herokuapp.com/deletarItens/{item.id}", item.id)
+                .then(function(){
+                    console.log("Deletou");
+                    $scope.enviando=false;
+                    $scope.mensagem="Deletou!";
+                },function(){
+                    console.log("Erro");
+                    $scope.enviando=false;
+                    $scope.mensagem="Não deletou!";
+                });
+        
+    }
+    
+    
+    $scope.clientes = [];    
+    $scope.relatorios = [
+        {modelo: "Consumo Médio de Clientes"},
+        {modelo: "Avaliação dos Clientes"},
+        {modelo: "Itens mais pedidos"}
+    ];
+    
+    //RELATÓRIOS
+    
+    $scope.listarClientes = function(cliente){
+        $scope.buscando = true;
+        console.log("latório"); 
+        if(cliente.relatorio.modelo === "Consumo Médio de Clientes"){
+            console.log("FOI!!!, CONSUMO MÉDIO");
+            $scope.nome = "Nome";
+            $scope.propriedade = "Consumo Médio";
+            
+            $http.get("http://localhost:8080/clientes")
+                .then(function(cliente){
+                    console.log('Vaaaai!');
+                    $scope.buscando=false;
+                    
+                    $scope.nomes = [];
+                    for(i = 0; i < cliente.data.length; i++){
+                       $scope.nomes.push(cliente.data[i].id);
+                        
+                    }
+                    console.log($scope.nomes);
+                    $scope.consumos = [];
+                    for(i = 0; i < cliente.data.length; i++){
+                       $scope.consumos.push(cliente.data[i].categoria);
+                        
+                    }
+                    console.log($scope.consumos);                 
+
+                },function(erro){
+                    $scope.buscando=false;
+                    console.log(erro);
+                });
+        }
+        if(cliente.relatorio.modelo === "Avaliação dos Clientes"){
+            console.log("FOI!!!, AVALIAÇÃO")
+            $scope.nome = "Nome";
+            $scope.propriedade = "Nota da Avaliação";
+            $scope.primeiroNome = cliente.first_name;
+            $scope.operacao = cliente.avaliacao;
+            $http.get("http://localhost:8080/clientes")
+                .then(function(cliente){
+                    console.log('Vaaaai!');
+                    console.log(cliente);
+                    $scope.buscando=false;
+                    console.log(cliente);
+                    $scope.clientes = cliente.data;
+                },function(erro){
+                    $scope.buscando=false;
+                    console.log(erro);
+                });
+        }
+        if(cliente.relatorio.modelo === "Itens mais pedidos"){
+            console.log("FOI!!!, MAIS PEDIDOS")
+            $scope.nome = "Nome";
+            $scope.propriedade = "Nota da Avaliação";
+            $http.get("http://localhost:8080/clientes")
+                .then(function(cliente){
+                    console.log('Vaaaai!');
+                    console.log(cliente);
+                    $scope.buscando=false;
+                    console.log(cliente);
+                    $scope.clientes = cliente.data;
+                },function(erro){
+                    $scope.buscando=false;
+                    console.log(erro);
+                });
+        }
+    }
     
 });

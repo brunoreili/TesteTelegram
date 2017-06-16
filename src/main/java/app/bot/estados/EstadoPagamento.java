@@ -4,7 +4,6 @@ import app.bot.cliente.Cliente;
 import app.bot.cliente.ClienteRepository;
 import app.bot.comanda.Comanda;
 import app.bot.comanda.ComandaRepository;
-import app.bot.comanda.ItemComanda;
 import app.bot.comanda.ItemComandaRepository;
 import app.bot.dao.ComandaDAO;
 import java.util.List;
@@ -17,7 +16,7 @@ public class EstadoPagamento extends Estado {
     private final ComandaRepository comandaRepository;
     private final ItemComandaRepository itemComandaRepository;
     final private Cliente cliente;
-    final private Comanda comanda;
+    final private Comanda comanda;    
     
     EstadoPagamento(ApplicationContext context, Cliente cliente, Comanda comanda) {
         super(context);
@@ -36,15 +35,19 @@ public class EstadoPagamento extends Estado {
                 case "1":
                     deletaComanda();
                     salvaAvaliacao(1);
-                    mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
+                    mensagemResposta = "Muito obrigado, " + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);
                     break;
                 case "2":
                     deletaComanda();
+                    
+                    List<String> itens = comandaDAO.recuperaItensComanda();
+                    mensagemResposta = "ITENS " + itens.size();
+                    
                     salvaAvaliacao(2);
-                    mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
+                    mensagemResposta += "Muito obrigado, " + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);      
@@ -52,7 +55,7 @@ public class EstadoPagamento extends Estado {
                 case "3":
                     deletaComanda();
                     salvaAvaliacao(3);
-                    mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
+                    mensagemResposta = "Muito obrigado, " + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);
@@ -60,7 +63,7 @@ public class EstadoPagamento extends Estado {
                 case "4":
                     deletaComanda();
                     salvaAvaliacao(4);
-                    mensagemResposta = "Muito obrigado," + cliente.getFirst_name() + ".\n" +
+                    mensagemResposta = "Muito obrigado, " + cliente.getFirst_name() + ".\n" +
                                        "O Laboratório do Chopp agradece a sua vinda!\n" +
                                        "Esperamos que volte mais vezes!";                                   
                     proximoEstado = new EstadoApresentacao(context, cliente, comanda);

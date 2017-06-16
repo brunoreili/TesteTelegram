@@ -41,17 +41,19 @@ public class EstadoInicial extends Estado{
                     mensagemResposta += System.lineSeparator() + 
                                         quantidade.get(i) + " - " + 
                                         itens.get(i) + "........R$ " +
-                                        valor.get(i);
+                                        valor.get(i) + "0";
                     }
                     mensagemResposta += System.lineSeparator() + 
-                                        "TOTAL...................R$ " + comanda.getTotal() + System.lineSeparator() + System.lineSeparator() +
+                                        "TOTAL...................R$ " + comanda.getTotal() + "0" + System.lineSeparator() + System.lineSeparator() +
                                         "1 - Voltar" + System.lineSeparator() +
                                         "2 - Fechar comanda"
                                    
                                         + "\n\nTESTE!\n " + //APENAS PARA TESTAR
                                         "NOTA AVALIAÇÃO: " + cliente.getAvaliacao() + " \n" +
                                         "CONSUMO MÉDIO: " + cliente.getConsumoMedio() + " \n" +
-                                        "CATEGORIA: " + cliente.getCategoria();                    
+                                        "CATEGORIA: " + cliente.getCategoria();  
+
+                                        
                     proximoEstado = new EstadoDecidindo(context, cliente, comanda); //Colocar If para decidir se vai fechar a comanda ou voltar! //Analisar os parametros
                     break;
             default:

@@ -37,7 +37,7 @@ public class EstadoBebidas extends Estado{
                 
                 mensagemResposta = "Legal, temos:";                
                 for(int i=0; i < opcoes.size() ; i++){
-                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i);
+                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i) + "0";
                 }                
                 proximoEstado = new EstadoCervejas(context, cliente, comanda, escolha); 
                 
@@ -50,7 +50,7 @@ public class EstadoBebidas extends Estado{
                         
                 mensagemResposta = "Legal, temos:";                
                 for(int i=0; i < opcoes.size() ; i++){
-                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i);
+                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i) + "0";
                 }                
                 proximoEstado = new EstadoDrinks(context, cliente, comanda, escolha); 
                 
@@ -63,7 +63,7 @@ public class EstadoBebidas extends Estado{
                         
                 mensagemResposta = "Legal, temos:";                
                 for(int i=0; i < opcoes.size() ; i++){
-                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i);
+                    mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i) + "0";
                 }                
                 proximoEstado = new EstadoNaoAlcool(context, cliente, comanda, escolha); 
                 

@@ -44,7 +44,7 @@ public class EstadoEscolhendo extends Estado {
                 
                     mensagemResposta = "Legal, temos:";
                     for(int i=0; i < opcoes.size() ; i++){
-                        mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i);
+                        mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i) + "0";
                 }
                 proximoEstado = new EstadoEspetinho(context, cliente, comanda, escolha);
                 break;
@@ -56,7 +56,7 @@ public class EstadoEscolhendo extends Estado {
 
                     mensagemResposta = "Legal, temos:";
                     for(int i=0; i < opcoes.size() ; i++){
-                        mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i);
+                        mensagemResposta += System.lineSeparator() + (i+1) + " - " + opcoes.get(i) + "..................R$ " + precos.get(i) + "0";
                     }
                     proximoEstado = new EstadoPorcoes(context, cliente, comanda, escolha);
                     break;

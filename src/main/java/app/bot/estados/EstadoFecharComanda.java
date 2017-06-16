@@ -3,21 +3,27 @@ package app.bot.estados;
 import app.bot.cliente.Cliente;
 import app.bot.cliente.ClienteRepository;
 import app.bot.comanda.Comanda;
+import app.bot.comanda.ComandaRepository;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoFecharComanda extends Estado {
     
     private final ClienteRepository clienteRepository; 
+    private final ComandaRepository comandaRepository;
     private final Cliente cliente;
     private final Comanda comanda;
-    private double taxaServico; //receber da classe anterior
+    private final double totalDesconto;
+    private final double taxaServico;
+    private double valorPagamento;
 
-    public EstadoFecharComanda(ApplicationContext context, Cliente cliente, Comanda comanda, double taxaServico) {
+    public EstadoFecharComanda(ApplicationContext context, Cliente cliente, Comanda comanda, double totalDesconto, double taxaServico) {
         super(context);
         this.cliente = cliente;
         this.comanda = comanda;
+        this.totalDesconto = totalDesconto;
         this.taxaServico = taxaServico;
         this.clienteRepository = context.getBean(ClienteRepository.class);
+        this.comandaRepository = context.getBean(ComandaRepository.class);
     }
 
     @Override
@@ -26,10 +32,16 @@ public class EstadoFecharComanda extends Estado {
         try{
             switch (mensagem.trim()) {
                 case "1":
-                    taxaServico = 5;
-                    cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal() + taxaServico);
-                    comanda.setComandaAberta(false);
+                    if(cliente.getConsumoMedio() == 0.00){
+                        cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal());
+                    }
+                    else{
+                        cliente.setConsumoMedio((cliente.getConsumoMedio() + comanda.getTotal()) / 2);
+                    }
                     salvaConsumoMedio();
+                    
+                    valorPagamento = totalDesconto + taxaServico;
+                    salvaTotal();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
                                        "Enquanto isso, avalie nosso atendimento."  + System.lineSeparator() +
@@ -41,9 +53,16 @@ public class EstadoFecharComanda extends Estado {
                     proximoEstado = new EstadoPagamento(context, cliente, comanda);
                     break;
                 case "2":
-                    cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal());
-                    comanda.setComandaAberta(false);
+                    if(cliente.getConsumoMedio() == 0.00){
+                        cliente.setConsumoMedio(cliente.getConsumoMedio() + comanda.getTotal());
+                    }
+                    else{
+                        cliente.setConsumoMedio((cliente.getConsumoMedio() + comanda.getTotal()) / 2);
+                    }
                     salvaConsumoMedio();
+                    
+                    valorPagamento = totalDesconto;
+                    salvaTotal();
                     mensagemResposta = "Tudo bem então" + System.lineSeparator() +
                                        "Estamos indo à sua mesa para receber o pagamento!"  + System.lineSeparator() +
                                        "Enquanto isso, avalie nosso atendimento."  + System.lineSeparator() +
@@ -69,6 +88,13 @@ public class EstadoFecharComanda extends Estado {
     private void salvaConsumoMedio() {
 
         clienteRepository.save(cliente);
+        
+    }
+
+    private void salvaTotal() {
+        
+        comanda.setTotal(valorPagamento);
+        comandaRepository.save(comanda);
         
     }
 

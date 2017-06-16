@@ -102,7 +102,7 @@ public class ControllerBot{
                         
         return cliente;
         
-    }    
+    }
     private Comanda buscarComanda(Cliente cliente){
         
         Comanda comanda = comandaRepository.findOne(cliente.getId());
@@ -114,7 +114,7 @@ public class ControllerBot{
             nova.setItem(null);
             nova.setTotal(0);
             nova.setPedidoAberto(false);
-            nova.setComandaAberta(true);
+            nova.setComandaAberta(false);
             comanda = comandaRepository.save(nova);
         }
         

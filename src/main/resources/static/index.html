@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
         .jumbotron{
@@ -42,26 +43,33 @@
             </a>
         </div>
         
+        <hr/><!--Rotas-->
+        
+         
+            <a href="#">Home</a>
+            <a href="#/cadastro">Cadastro</a>
+            <a href="#/listar">Listar</a>
+       
+        
         <hr><!--Enviar Texto-->
         <div class="jumbotron">
             <h3>Inserir Texto</h3>
             <hr/>
-            <textarea class="form-control" rows="5" ng-model="texto" placeholder="Texto"></textarea>
-            <!--input class="form-control" type="text" ng-model="texto" placeholder="Texto"> <br-->
+            <textarea class="form-control" rows="5" ng-model="texto" placeholder="Texto"></textarea> <br/>
             <button class="btn btn-primary" 
                     ng-click="enviar(texto)"
                     ng-disabled="!texto">Enviar</button>
             <br/>
-            <h1 ng-show="enviando">Enviando...</h1> 
+            <h4 ng-show="enviando">Enviando...</h4> 
             <hr><!--Resposta-->
             <h4 style="text-align: left">Resposta:</h4>
             {{resposta.data.texto}}
         </div>
         
-        <hr/><!--Cadastro de Itens-->         
+        <hr/><!--Crud De Itens-->         
         <div class="jumbotron">
             
-            <h3>Cadastro de Itens</h3>
+            <h3>Administração de Cardápio</h3>
             <hr/>
             <select class="form-control" ng-model="item.categoria" 
                     ng-options="categoria.nome group by categoria.tipo for categoria in categorias">
@@ -72,32 +80,47 @@
             <button class="btn btn-primary" ng-click="adcionarItem(item)" 
                     ng-disabled="!item.nome || !item.valor || !item.categoria">Adcionar Item
             </button>
+            <button class="btn btn-primary" ng-click="listarItem(item)" ng-disabled="!item.categoria">Listar</button>
             <hr/>
             <h4 ng-show="enviando">Enviando...</h4> 
             <h4>{{mensagem}}</h4>
-        </div>
-        
-        <hr/><!--Listar Itens-->
-        <div class="jumbotron">
-            <h3>Listar Itens</h3>
-            <hr/>
-            <select class="form-control" ng-model="item.categoria" ng-options="categoria.nome group by categoria.tipo for categoria in categorias">
-                <option value="">Selecione a categoria do item</option>
-            </select> <br/>
-            <button class="btn btn-primary" ng-click="listar(item)" ng-disabled="!item.categoria">Listar</button>
-            <h1 ng-show="buscando">Buscando...</h1>
-            
             <table class="table table-striped" ng-show="itens">
                 <tr>
+                    <th></th>
                     <th style="text-align: center">Nome</th>
                     <th style="text-align: center">valor R$</th>
                 </tr>
                 <tr ng-repeat="item in itens">
+                    <td><button class="btn btn-danger" ng-click="deletarItem(item)">Deletar</button></td>
                     <td>{{item.nome}}</td>
                     <td>{{item.valor}}</td>
                 </tr>
             </table>
-        </div> 
+        </div>        
+              
+        <hr/><!--Relatórios-->
+        <div class="jumbotron">
+            <h3>Relatórios</h3>
+            <hr/>
+            <select class="form-control" ng-model="cliente.relatorio"
+                    ng-options="relatorio.modelo for relatorio in relatorios">
+                <option value="">Selecione o relatório</option>
+            </select> <br/>
+            <button class="btn btn-primary" ng-click="listarClientes(cliente)"
+                    ng-disabled="!cliente.relatorio">Gerar</button>
+            <h4 ng-show="buscando">Buscando...</h4>
+            
+            <table class="table table-striped" ng-show="clientes">
+                <tr>
+                    <th style="text-align: center">Categoria</th>
+                    <th style="text-align: center">{{propriedade}}</th>
+                </tr>
+                <tr>
+                    <td ng-repeat="nome in nomes">{{nome}}</td>
+                    <td ng-repeat="consumo in consumos">R$ {{consumo}}</td>
+                </tr>
+            </table>
+        </div>
             
     </body>    
 </html>

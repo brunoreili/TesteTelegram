@@ -5,16 +5,20 @@ import app.bot.dao.PorcaoDAO;
 import app.bot.dao.CervejaDAO;
 import app.bot.dao.DrinkDAO;
 import app.bot.dao.NaoAlcoolDAO;
-import app.bot.item.ItemEspetinho;
-import app.bot.item.ItemPorcao;
-import app.bot.item.ItemCerveja;
-import app.bot.item.ItemEspetinhoRepository;
-import app.bot.item.ItemPorcaoRepository;
-import app.bot.item.ItemCervejaRepository;
-import app.bot.item.ItemDrink;
-import app.bot.item.ItemDrinkRepository;
-import app.bot.item.ItemNaoAlcool;
-import app.bot.item.ItemNaoAlcoolRepository;
+import app.bot.cardapio.ItemEspetinho;
+import app.bot.cardapio.ItemPorcao;
+import app.bot.cardapio.ItemCerveja;
+import app.bot.cardapio.ItemEspetinhoRepository;
+import app.bot.cardapio.ItemPorcaoRepository;
+import app.bot.cardapio.ItemCervejaRepository;
+import app.bot.cardapio.ItemDrink;
+import app.bot.cardapio.ItemDrinkRepository;
+import app.bot.cardapio.ItemNaoAlcool;
+import app.bot.cardapio.ItemNaoAlcoolRepository;
+import app.bot.cliente.Cliente;
+import app.bot.cliente.ClienteRepository;
+import app.bot.comanda.Comanda;
+import app.bot.comanda.ComandaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,12 +33,15 @@ import java.util.List;
 public class ControllerBar {
     
     @Autowired
-    private ApplicationContext context;    
+    private ApplicationContext context;
+    @Autowired
     private ItemEspetinhoRepository itemEspetinhoRepository;
     private ItemPorcaoRepository itemPorcaoRepository;
     private ItemCervejaRepository itemCervejaRepository;
     private ItemDrinkRepository itemDrinkRepository;
     private ItemNaoAlcoolRepository itemNaoAlcoolRepository;
+    private ClienteRepository clienteRepository;
+    //private ComandaRepository comandaRepository;
     
     //Preencher Banco
     @RequestMapping(method=RequestMethod.POST, value="/salvaEspetinho")
@@ -107,7 +114,7 @@ public class ControllerBar {
 
     }
     
-    //Listar Banco    
+    //Listar Itens    
     @RequestMapping(method=RequestMethod.GET, value="/listaEspetinhos")
     public List<ItemEspetinho> listarEspetinhos() {
 
@@ -157,5 +164,36 @@ public class ControllerBar {
         return (List<ItemNaoAlcool>) itemNaoAlcoolRepository.findAll();
 
     }
+    
+    //Alterar Itens
+    @RequestMapping(method=RequestMethod.DELETE, value="/deletarItens/{id}")
+    public void deletarItens(ItemEspetinho item) {
+
+        System.out.println("uebaaa!!! Deletando");
+        itemEspetinhoRepository = context.getBean(ItemEspetinhoRepository.class);
+
+        itemEspetinhoRepository.delete(item.getId());
+
+    }
+ 
+    //CLIENTE
+    @RequestMapping(method=RequestMethod.GET, value="/clientes")
+    public List<Cliente> listarClientes(){
+        
+        clienteRepository = context.getBean(ClienteRepository.class);
+        
+        return (List<Cliente>) clienteRepository.findAll();
+        
+    }
+    
+    //COMANDA
+    /*@RequestMapping(method=RequestMethod.GET, value="/comandas")
+    public List<Comanda> listarComandas(Comanda comanda){
+        
+        comandaRepository = context.getBean(ComandaRepository.class);
+        
+        return (List<Comanda>) comandaRepository.findOne(comanda.id);
+        
+    }*/
     
 }

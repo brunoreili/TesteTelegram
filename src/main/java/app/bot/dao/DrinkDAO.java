@@ -1,7 +1,7 @@
 package app.bot.dao;
 
-import app.bot.item.ItemDrink;
-import app.bot.item.ItemDrinkRepository;
+import app.bot.cardapio.ItemDrink;
+import app.bot.cardapio.ItemDrinkRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -23,12 +23,12 @@ public class DrinkDAO {
             
             ItemDrink d1 = new ItemDrink();
             d1.setNome("Whisky");
-            d1.setValor("15.00");        
+            d1.setValor("15.0");        
             itemDrinkRepository.save(d1);
                 
             ItemDrink d2 = new ItemDrink();
             d2.setNome("Caipirinha");
-            d2.setValor("10.00");        
+            d2.setValor("10.0");        
             itemDrinkRepository.save(d2);
  
         }

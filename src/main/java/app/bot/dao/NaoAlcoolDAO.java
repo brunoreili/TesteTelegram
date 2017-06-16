@@ -1,10 +1,10 @@
 package app.bot.dao;
 
-import app.bot.item.ItemNaoAlcool;
+import app.bot.cardapio.ItemNaoAlcool;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
-import app.bot.item.ItemNaoAlcoolRepository;
+import app.bot.cardapio.ItemNaoAlcoolRepository;
 
 public class NaoAlcoolDAO {
     
@@ -23,17 +23,17 @@ public class NaoAlcoolDAO {
             
             ItemNaoAlcool na1 = new ItemNaoAlcool();
             na1.setNome("Coca-cola");
-            na1.setValor("3.00");        
+            na1.setValor("3.0");        
             itemNaoAlcoolRepository.save(na1);
                 
             ItemNaoAlcool na2 = new ItemNaoAlcool();
             na2.setNome("Guaraná Antártica");
-            na2.setValor("3.00");        
+            na2.setValor("3.0");        
             itemNaoAlcoolRepository.save(na2);
         
             ItemNaoAlcool na3 = new ItemNaoAlcool();
             na3.setNome("Suco de Laranja");
-            na3.setValor("4.00");        
+            na3.setValor("4.0");        
             itemNaoAlcoolRepository.save(na3);
             
             ItemNaoAlcool na4 = new ItemNaoAlcool();

@@ -82,7 +82,7 @@ public class EstadoQuantidade extends Estado{
             //Quantidade
             if(quantidade == 1){                
                 mensagemResposta = "Beleza, anotei! " + quantidade + " unidade de " + produto + System.lineSeparator() +
-                                   "O valor total ficou em: R$ " + valor + System.lineSeparator() +
+                                   "O valor total ficou em: R$ " + valor + "0" + System.lineSeparator() +
                                    "Posso confirmar ou deseja pedir algo a mais?" + System.lineSeparator() +
                                    "1 - Pode confirmar o pedido!" + System.lineSeparator() +
                                    "2 - Quero pedir algo a mais!";
@@ -90,7 +90,7 @@ public class EstadoQuantidade extends Estado{
             }
             else if(quantidade > 1 && quantidade <= 20){                
                 mensagemResposta = "Beleza, Anotei! São " + quantidade + " unidades de " + produto + System.lineSeparator() +
-                                   "O valor total ficou em: R$ " + valor + System.lineSeparator() +
+                                   "O valor total ficou em: R$ " + valor + "0" + System.lineSeparator()  +
                                    "Posso confirmar ou deseja pedir algo a mais?" + System.lineSeparator() +
                                    "1 - Pode confirmar o pedido!" + System.lineSeparator() +
                                    "2 - Quero pedir algo a mais!";

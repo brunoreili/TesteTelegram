@@ -3,19 +3,22 @@ package app.bot.estados;
 import app.bot.cliente.Cliente;
 import app.bot.cliente.ClienteRepository;
 import app.bot.comanda.Comanda;
+import app.bot.comanda.ComandaRepository;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoApresentacao extends Estado{
     
     private final ClienteRepository clienteRepository;
+    private final ComandaRepository comandaRepository;
     private Cliente cliente;
-    private final Comanda comanda;
+    private Comanda comanda;
 
     public EstadoApresentacao(ApplicationContext context, Cliente cliente, Comanda comanda) {
         super(context);
         this.cliente = cliente;
         this.comanda = comanda;
-        this.clienteRepository = context.getBean(ClienteRepository.class);        
+        this.clienteRepository = context.getBean(ClienteRepository.class);
+        this.comandaRepository = context.getBean(ComandaRepository.class);
     }
     
     @Override
@@ -23,6 +26,18 @@ public class EstadoApresentacao extends Estado{
         
         try{
             
+            mensagemResposta = "TESTEEEE " + comanda.isComandaAberta() + System.lineSeparator();
+            
+            if(comanda.isComandaAberta() == true){
+            mensagemResposta = "Desculpe!\n" + 
+                               "O fechamento da sua conta ainda está pendente!" +
+                               "Tente de novo após confirmação de fechamanto da conta.";
+            proximoEstado = this;
+            }
+             
+            comanda.setComandaAberta(true);
+            comanda = comandaRepository.save(comanda);
+                                 
             if(cliente.getConsumoMedio() > 0.00 && cliente.getConsumoMedio() < 500.00){
             cliente.setCategoria("Prata");
             cliente = clienteRepository.save(cliente);
@@ -31,9 +46,8 @@ public class EstadoApresentacao extends Estado{
             cliente.setCategoria("Ouro");
             cliente = clienteRepository.save(cliente);
             }
-            
-            if(cliente.getCategoria().equals("Bronze")){
-            
+                       
+            if(cliente.getCategoria().equals("Bronze")){               
                 mensagemResposta = "Olá, " + cliente.getFirst_name() + " " + cliente.getLast_name() + "!" + System.lineSeparator() +
                                    "Seja bem-vindo ao Laboratório do Chopp!" + System.lineSeparator() +
                                    "É muito bom ter você como novo cliente do nosso Bar!" + System.lineSeparator() +
@@ -47,7 +61,7 @@ public class EstadoApresentacao extends Estado{
             }else{
                 mensagemResposta = "Olá, " + cliente.getFirst_name() + " " + cliente.getLast_name() + "!" + System.lineSeparator() +
                                    "Seja bem-vindo ao Laboratório do Chopp!" + System.lineSeparator() +
-                                   "É muito bom tê-lo de volta!" + System.lineSeparator() +
+                                   "É muito bom te ter de volta!" + System.lineSeparator() +
                                    "Você é um cliente \"" + cliente.getCategoria() + "\" e terá descontos especiais ao fechar a comanda!" + System.lineSeparator() + 
                                    "Vamos lá, o que deseja fazer?" + System.lineSeparator() +
                                    "Digite: " + System.lineSeparator() +
